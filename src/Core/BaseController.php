@@ -1,7 +1,10 @@
 <?php
 	namespace Core;
-	class BaseController {
+	class BaseController implements RouteHandler {
 		public function __construct() {
+		}
+
+		public function initialize() {
 			
 		}
 	}

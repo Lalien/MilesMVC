@@ -45,27 +45,17 @@
 			}
 			array_push($routes['POST'], ['url' => $url, 'callback' => $callback]);
 		}
-
+		
 		/**
 		 * Executes the callback or the controller
-		 *  @return BaseController|void
+		 *  @return BaseController|CallbackHandler
 		*/
 
 		public function executeCallback() {
 			if(is_callable($this->route['callback'])) {
-				return $this->route['callback']();
+				return new CallbackHandler($this->route['callback']);
 			} else {
-				return new BaseController($this->route['callback']);
+				return new BaseController();
 			}
 		}
 	}
-
-	Route::get('hello', "asdf");
-
-	Route::get('goodbye', function() {
-		echo "Hello!";
-	});
-
-	Route::post('goodbye', function() {
-		echo "Hello!";
-	});

@@ -1,3 +1,5 @@
 <?php 
+	define("BASE_PATH", dirname((__FILE__), 2) . "/");
 	global $routes;
-	include "autoload.php";
+	require "autoload.php";
+	require BASE_PATH . "/config/routes.php";
