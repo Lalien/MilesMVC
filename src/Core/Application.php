@@ -4,8 +4,8 @@
 		public function initialize();
 	}
 	class Application {
-		public static function start($method, $params) {
-			$instance = new Route($method, $params[1]);
+		public static function start($method, $uri) {
+			$instance = new Route($method, $uri);
 			$instance->executeCallback()->initialize();
 		}
 	}

@@ -1,6 +1,12 @@
 <?php 
 	namespace Core;
 	class Request {
+		
+		/**
+		 * Gets the current HTTP method.
+		 * @return string
+		*/
+
 		public function getMethod() {
 			return strtoupper($_SERVER['REQUEST_METHOD']);
 		}
