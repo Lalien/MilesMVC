@@ -3,11 +3,11 @@
 	use \Core\Route as Route;
 	
 	Route::get('hello', "asdf");
-
+	
 	Route::get('goodbye', function(Request $request) {
-		echo "Hello!";
+		var_dump($request->getData());
 	});
 
-	Route::post('goodbye', function() {
-		echo "Hello!";
+	Route::get('', function() {
+		echo "The root of the application!";
 	});

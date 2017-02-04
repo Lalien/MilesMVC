@@ -2,6 +2,14 @@
 	namespace Core;
 	class Route {
 		protected $route = [];
+
+		/**
+		 * Finds the route and binds it to the controller
+		 * @param $method string
+		 * @param $url string
+		 * @return void
+		*/
+		
 		public function __construct($method, $url) {
 			global $routes;
 			if (isset($routes[$method])) {
@@ -55,7 +63,7 @@
 			if(is_callable($this->route['callback'])) {
 				return new CallbackHandler($this->route['callback']);
 			} else {
-				return new BaseController();
+				return new BaseController($this->route['callback']);
 			}
 		}
 	}

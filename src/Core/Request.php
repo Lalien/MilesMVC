@@ -2,6 +2,13 @@
 	namespace Core;
 	class Request {
 		public function getMethod() {
-			return $_SERVER['REQUEST_METHOD'];
+			return strtoupper($_SERVER['REQUEST_METHOD']);
+		}
+		public function getData() {
+			if ($this->getMethod() === "GET") {
+				return $_GET;
+			} else if ($this->getMethod() === "POST") {
+				return $_POST;
+			}
 		}
 	}
