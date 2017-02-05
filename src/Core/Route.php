@@ -2,7 +2,7 @@
 	namespace Core;
 	class Route {
 		protected $route = [];
-		protected $params = [];
+		protected $parameters = [];
 		/**
 		 * Finds the route and binds it to the controller
 		 * @param $method string
@@ -12,11 +12,12 @@
 
 		public function __construct($method, $url) {
 			global $routes;
-			$this->params = $url;
 			if (isset($routes[$method])) {
 				foreach($routes[$method] as $route) {
-					if ($this->findURL($route['url'], $url)) {
+					$parameter_variables = $this->findURL($route['url'], $url);
+					if (gettype($parameter_variables) == "array") {
 						$this->route = $route;
+						$this->parameters = $parameter_variables;
 						return;
 					}
 				}
@@ -61,9 +62,9 @@
 
 		public function executeCallback() {
 			if(is_callable($this->route['callback'])) {
-				return new CallbackHandler($this->route['callback']);
+				return new CallbackHandler($this->route['callback'],$this->parameters);
 			} else {
-				return new BaseController($this->route['callback'], $this->params);
+				return new BaseController($this->route['callback'], $this->parameters);
 			}
 		}
 
@@ -76,26 +77,28 @@
 		protected function findURL($route, $url) {
 			$route_segments = explode("/",$route);
 			$params = explode("/", substr($url,1));
+			$vars = [];
 			// Checks to see if the defined route and the current route have the same number of parameters. 
-			if (sizeof($params) != sizeof($route_segments)) {
+			if (sizeof($params) !== sizeof($route_segments)) {
 				return false;
 			}
 			// Loops through each URL parameter.
 			foreach($params as $param) {
 				$current_route_segment = array_shift($route_segments);
 				// Checks to see if the defined route has a wildcard parameter.
-				if (preg_match_all("/{(.*?)}/", @$current_route_segment, $matches)) {
+				if (preg_match_all("/{(.*?)}/", $current_route_segment, $matches)) {
 					if (sizeof($matches[1]) != 1) {
 						throw new Exception("Please check the URL structure.");
 						return false;
 					}
+					$vars[$matches[1][0]] = $param;
 					continue;
 				}
 				// If it doesn't, then see if there is a hardcoded parameter.
-				if ($param != @$current_route_segment) {
+				if ($param != $current_route_segment) {
 					return false;
 				}
 			}
-			return true;
+			return $vars;
 		}
 	}

@@ -11,7 +11,7 @@
 		*/
 
 		public function __construct($controller, $params) {
-
+			
 		}
 
 		/**
@@ -20,6 +20,6 @@
 		 *
 		*/
 		public function initialize() {
-			
+
 		}
 	}

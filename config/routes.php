@@ -4,10 +4,10 @@
 	
 	Route::get('hello', "asdf");
 
-	Route::get('goodbye', function(Request $request) {
-		var_dump($request->getData());
+	Route::get('goodbye', function() {
+		echo "Goodbye!";
 	});
-
-	Route::get('goodbye/{i}/miles', function() {
+	
+	Route::get('goodbye/{i}/miles', function($id) {
 		echo "The root of the application!";
 	});
