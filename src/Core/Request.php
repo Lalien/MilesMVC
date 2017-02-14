@@ -6,7 +6,7 @@
 		 * Gets the current HTTP method.
 		 * @return string
 		*/
-
+		
 		public static function getMethod() {
 			return strtoupper($_SERVER['REQUEST_METHOD']);
 		}

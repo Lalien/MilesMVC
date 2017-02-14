@@ -1,8 +1,7 @@
 <?php
-	use \Core\Request as Request;
 	use \Core\Route as Route;
 	
-	Route::get('hello', "asdf");
+	Route::get("hello", "HelloController:index");
 
 	Route::get('goodbye', function() {
 		echo "Goodbye!";

@@ -54,7 +54,7 @@
 			}
 			array_push($routes['POST'], ['url' => $url, 'callback' => $callback]);
 		}
-		
+		 
 		/**
 		 * Executes the callback or the controller
 		 *  @return BaseController|CallbackHandler
@@ -64,14 +64,15 @@
 			if(is_callable($this->route['callback'])) {
 				return new CallbackHandler($this->route['callback'],$this->parameters);
 			} else {
-				return new BaseController($this->route['callback'], $this->parameters);
+				return new ControllerHandler($this->route['callback'], $this->parameters);
 			}
 		}
 
 		/**
 		 * Validates the URL structure and assigns the parameters.
 		 * @param $route string
-		 * @return boolean
+		 * @param $url string
+		 * @return boolean|array
 		*/
 
 		protected function findURL($route, $url) {

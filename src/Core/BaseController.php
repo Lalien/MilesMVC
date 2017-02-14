@@ -1,7 +1,7 @@
 <?php
 	namespace Core;
 	use \Core\Request as Request;
-	class BaseController implements RouteHandler {
+	class BaseController {
 
 		/**
 		 * Parses the controller string
@@ -10,7 +10,7 @@
 		 * @return void
 		*/
 
-		public function __construct($controller, $params) {
+		public function __construct() {
 			
 		}
 
