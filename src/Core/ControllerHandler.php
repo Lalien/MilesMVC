@@ -11,7 +11,7 @@
 		
 		function __construct($controller_string, $params = []) {
 			$controller_array = explode(":", $controller_string);
-			$this->controller = $controller_array[0];
+			$this->controller = "\\" . $controller_array[0];
 			$this->method = $controller_array[1] ?: "index";
 			$this->params = $params;
 		}
@@ -22,12 +22,14 @@
 		*/
 
 		public function initialize() {
+			$method = $this->method;
 			if (class_exists($this->controller)) {
 				$userController = new $this->controller;
-				echo "Object exists!";
-				if (is_callable($userController->$this->method)) {
-					echo "It's callable!";
+				if (method_exists($userController,$method)) {
+					call_user_func_array(array($userController, $method), $this->params);
 					return; 
+				} else {
+					echo "Method doesn't exist.";
 				}
 			}
 		}

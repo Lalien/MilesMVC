@@ -1,7 +1,7 @@
 <?php
 	use \Core\Route as Route;
 	
-	Route::get("hello", "HelloController:index");
+	Route::get("hello/{id}", "Hello_Controller:index");
 
 	Route::get('goodbye', function() {
 		echo "Goodbye!";
